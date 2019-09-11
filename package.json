@@ -1,0 +1,14 @@
+{
+  "name": "pooto-flight-tracker",
+  "version": "1.0.0",
+  "description": "Pooto Flight Tracker, provided the flight number tracks the flight to destination live",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jason Liu",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^5.12.0"
+  }
+}
