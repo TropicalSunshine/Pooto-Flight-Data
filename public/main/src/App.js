@@ -3,12 +3,12 @@
 import React from 'react';
 import Map from "./Map.js";
 
-import Menu from "./Menu.js";
+import Overlay from "./Overlay.js";
 
 function App() {
   return (
     <div className="App">
-      <Menu/>
+      <Overlay/>
       <Map/>
     </div>
   );

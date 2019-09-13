@@ -1,44 +1,21 @@
-import React, { Component } from 'react'
-import {geoMercator, geoPath} from "d3-geo";
+import React, { Component } from 'react';
+import {geoMercator} from "d3-geo";
 import {feature} from "topojson-client";
 
 export default class Map extends Component {
 
     constructor(){
         super();
-        this.state = {
-            worldData: [],
-          };
     }
 
-    projection(){
-        return geoMercator()
-            .scale(100)
-            .translate([400, 250]);
+    componentDidMount()
+    {
     }
-
-    componentDidMount() {
-        fetch("http://localhost:8181/data/world", {
-            method: 'GET'
-        })
-          .then(response => {
-            if (response.status !== 200) {
-              console.log(`There was a problem: ${response.status}`)
-              return
-            }
-            response.json().then(worldData => {
-              this.setState({
-                worldData: feature(worldData, worldData.objects.countries).features,
-              })
-              console.log(this.state.worldData);
-            })
-          })
-      }
 
     render() {
         var mapStyle = {
-            height: window.screen.height,
-            width: window.screen.width
+            height: window.innerHeight,
+            width: window.innerWidth
         }
         return(
             <div id = "Map" style = {mapStyle}>

@@ -1,19 +1,17 @@
+
 import React, { Component } from 'react'
 
-export default class Menu extends Component {
+export default class FlightInput extends Component {
     constructor(){
         super();
         this.state = {
             inputValue: ""
         }
     }
-
-
     render() {
-
         return (
-            <div id = "menu">
-                <div className = "menu-title">Pooto Flight Tracker</div>
+            <div id = "flightinput">
+                <div className = "flightinput-title">Pooto Flight Tracker</div>
                 <div>
                     <input type = "input"
                     value = {this.state.inputValue} 

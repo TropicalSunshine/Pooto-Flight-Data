@@ -29,7 +29,7 @@ button{
     border-radius: 2px;
 }
 
-#menu
+#flightinput
 {
   width: 400px;
   font-family: system-ui, sans-serif;
@@ -39,7 +39,7 @@ button{
   top: 0;
 }
 
-.menu-title
+.flightinput-title
 {
   color: Green;
   font-size: 40px;
