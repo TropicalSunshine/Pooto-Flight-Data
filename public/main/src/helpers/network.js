@@ -8,6 +8,7 @@ module.exports = {
             method: "GET",
             body: null,
         }).then(res => res.json()).then(function(resp){
+            console.log("fetch data", resp.data);
             result = resp.data;
             action(result)
         }).catch(error => {

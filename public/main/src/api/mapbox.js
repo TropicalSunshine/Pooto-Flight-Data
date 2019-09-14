@@ -20,40 +20,41 @@ module.exports = {
         MAP.on("load", function(){
           
             function pointsOnMap(data){
-                console.log(data);
-                console.log(localStorage.data);
               return {
                 "type": "FeatureCollection",
-                "features":localStorage.data
+                "features": data
               }
             }
 
             getAllFlightCord((data) => {
-                localStorage.data = data;
-              pointsOnMap(data);
+                
+                MAP.addSource("flightsAll", {
+                    type: "geojson",
+                    data: pointsOnMap(data)
+                });
+        
+                MAP.addLayer({
+                    id: "flightsAll",
+                    source: "flightsAll",
+                    type: "circle", 
+                    paint: {
+                        "circle-radius": 2,
+                        "circle-color": "green"
+                    }
+                });
             })
           
-            MAP.addSource("flightsAll", {
-                type: "geojson",
-                data: pointsOnMap()
-            });
-
-            MAP.addLayer({
-                id: "flightsAll",
-                source: "flightsAll",
-                type: "circle", 
-                paint: {
-                    "circle-radius": 10,
-                    "circle-color": "green"
-                }
-            });
 
             function updateFlights()
             {
-              MAP.getSource("flightsAll").setData(pointsOnMap());
+              getAllFlightCord((data) => {
+                  MAP.getSource("flightsAll").setData(pointsOnMap(data));
+              })
             }
 
-            //var all_flight_interval = setInterval(updateFlights, 3000);
+
+
+            var all_flight_interval = setInterval(updateFlights, 3000);
 
         });
 
