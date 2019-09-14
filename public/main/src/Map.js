@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {geoMercator} from "d3-geo";
-import {feature} from "topojson-client";
 
 export default class Map extends Component {
 
@@ -14,8 +12,10 @@ export default class Map extends Component {
 
     render() {
         var mapStyle = {
-            height: window.innerHeight,
-            width: window.innerWidth
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            width: "100%"
         }
         return(
             <div id = "Map" style = {mapStyle}>

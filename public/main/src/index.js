@@ -5,7 +5,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
-import {renderMap} from "./api/mapbox.js";
+import {_renderMap} from "./api/mapbox.js";
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
@@ -16,7 +17,7 @@ serviceWorker.unregister();
 
 
 //from mapbox api
-renderMap();
+_renderMap();
 
 
 

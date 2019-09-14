@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use('/', express.static(path.join(__dirname + '/public/mainclient/build')));
 
 //Game
-app.use("/data", GameRoute);
+app.use("/flights", GameRoute);
 
 
 //if no routes are found
