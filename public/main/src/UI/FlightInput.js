@@ -66,7 +66,6 @@ export default class FlightInput extends Component {
                     }}>
                         Find
                     </button>
-                    <div className = "mapboxgl-ctrl">Hello World</div>
                 </div>
             </div>
         )

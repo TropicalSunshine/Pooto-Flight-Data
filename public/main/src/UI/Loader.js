@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 
-export default class Loader extends Component {
-    constructor(props)
-    {
-        super(props);
-    }
-    
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
-    }
+import {Spinner, SpinnerSize} from 'office-ui-fabric-react/lib/Spinner';
+
+
+export default function Loader(props)
+{
+    console.log(props.name);
+    return (
+        <div className = "loader" id = {"loader-" + props.name}>
+            <Spinner size = {SpinnerSize.large}/>
+        </div>
+    )
 }

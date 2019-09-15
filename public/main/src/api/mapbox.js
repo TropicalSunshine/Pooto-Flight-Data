@@ -1,10 +1,13 @@
 
+
 var mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 mapboxgl.accessToken = 'pk.eyJ1IjoidHJvcGljYWx0b2Z1IiwiYSI6ImNrMGc5cWJjcDA1ZGMzY241aGtoeWJnczYifQ.1lkF8CRWw2bxBUsnBKd4Aw';
 
 var MAP;
 
 var getAllFlightCord = require("../helpers/network.js").getAllFlightCord;
+
+
 
 module.exports = {
     map: MAP,
@@ -18,7 +21,9 @@ module.exports = {
         });        
         
         MAP.on("load", function(){
-          
+
+            //turn loader off
+            document.getElementById("loader-overlay").classList.add("loader-fade-out");
             function pointsOnMap(data){
               return {
                 "type": "FeatureCollection",
@@ -27,7 +32,6 @@ module.exports = {
             }
 
             getAllFlightCord((data) => {
-                
                 MAP.addSource("flightsAll", {
                     type: "geojson",
                     data: pointsOnMap(data)
@@ -38,24 +42,34 @@ module.exports = {
                     source: "flightsAll",
                     type: "circle", 
                     paint: {
-                        "circle-radius": 2,
-                        "circle-color": "green"
+                        "circle-radius": 4,
+                        "circle-color": [
+                            'match', 
+                            ["get", "grounded"],
+                            "true", "red",
+                            "false", "green",
+                            "white"
+                        ]
                     }
                 });
-            })
+            });
+
+            MAP.addControl(new mapboxgl.NavigationControl());
           
 
             function updateFlights()
             {
-              getAllFlightCord((data) => {
-                  MAP.getSource("flightsAll").setData(pointsOnMap(data));
+              getAllFlightCord((data) => {  
+                  if(data != [])
+                  {
+                    MAP.getSource("flightsAll").setData(pointsOnMap(data));
+                  }
               })
             }
 
 
 
             var all_flight_interval = setInterval(updateFlights, 3000);
-
         });
 
     },
