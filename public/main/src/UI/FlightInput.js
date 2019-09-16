@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react'
-import {renderLine, renderImage, moveCamera} from "../api/mapbox.js";
+import {renderLine, drawFlightRoute, moveCamera} from "../api/mapbox.js";
 
 import {midPoint} from "../helpers/pointcalculations.js";
 import {geoPath} from "d3-geo";
@@ -57,6 +57,13 @@ export default class FlightInput extends Component {
                             long: 33.7243396617476
                         });
 
+                        drawFlightRoute({
+                            lat: 10.1953125,
+                            long: 62.91523303947614
+                        }, {
+                            lat: 105.46875,
+                            long: 33.7243396617476
+                        })
                         moveCamera([center.lat + 5, center.long], 3)
 
                         console.log(geoPath());

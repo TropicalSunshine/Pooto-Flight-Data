@@ -40,7 +40,7 @@ var fetchAllStates = () => {
     })
 }
 
-var flight_data_all_interval = setInterval(fetchAllStates, 3000);
+var flight_data_all_interval = setInterval(fetchAllStates, 2000);
 
 
 router.get("/all", (req,res,next) => {

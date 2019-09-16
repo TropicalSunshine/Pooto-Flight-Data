@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
-import {moveCamera} from "../api/mapbox.js";
+import {moveCamera, drawPulseDot, drawFlightRoute} from "../api/mapbox.js";
 
 
 export default class MapControls extends Component {
@@ -27,7 +27,9 @@ export default class MapControls extends Component {
                 </div>
                 <div className = "mapcontrols-square" onClick = {() => {
                     var currentLocation = (position) =>{
-                        moveCamera([position.coords.longitude, position.coords.latitude], 12);
+                        var center = [position.coords.longitude, position.coords.latitude];
+                        moveCamera(center, 12);
+                        drawPulseDot(center);
                     }
 
                     navigator.geolocation.getCurrentPosition(currentLocation);
