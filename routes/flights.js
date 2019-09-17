@@ -14,8 +14,6 @@ var flight_data = {
 };
 
 var fetchAllStates = () => {
-    var in_air_flights = [];
-    var grouded_flights = [];
 
     axios.get("https://opensky-network.org/api/states/all")
     .then(response => {
@@ -26,10 +24,9 @@ var fetchAllStates = () => {
             response.data["states"].forEach(flight => {
                 if(flight[8] == false)
                 {
-                    in_air_flights.push( {
+                    flight_data["all"].push( {
                         "type": "Feature",
                         "properties": {
-                            "grounded": flight[8].toString(),
                             "country": flight[2]
                         },
                         "geometry": {
@@ -40,12 +37,20 @@ var fetchAllStates = () => {
                 }
                 else if(flight[8])
                 {
-                    grounded_flights;
+                    flight_data["grounded"].push({
+                        "type": "Feature",
+                        "properties": {
+                            "country": flight[2]
+                        },
+                        "geometry": {
+                        "type": "Point",
+                        "coordinates": [flight[5], flight[6]],
+                        }
+                    })
                 }
 
             });
         }
-    flight_data["all"] = all_flights;
     }).catch(error => {
         console.log(error);    
     })
@@ -71,6 +76,24 @@ router.get("/all", (req,res,next) => {
         })
     }
 
+})
+
+router.get("/grounded", (req, res, next) => {
+    res.header("content-type", "application/json");
+
+    if(flight_data["all"] == [])
+    {
+        res.status(404).json({
+            message: "error"
+        })
+    }
+    else
+    {
+        res.status(200).json({
+            message: "success",
+            data: flight_data["grounded"]
+        })
+    }
 })
 
 module.exports = router;

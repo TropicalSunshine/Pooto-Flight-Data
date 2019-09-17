@@ -25,7 +25,6 @@ module.exports = {
 
             //turn loader off
             document.getElementById("loader-overlay").classList.add("loader-fade-out");
-            
             function pointsOnMap(data) {
                 return {
                     "type": "FeatureCollection",
@@ -48,13 +47,7 @@ module.exports = {
                     type: "circle",
                     paint: {
                         "circle-radius": 4,
-                        "circle-color": [
-                            'match',
-                            ["get", "grounded"],
-                            "true", "red",
-                            "false", "green",
-                            "white"
-                        ]
+                        "circle-color": "green"
                     }
                 });
             });
