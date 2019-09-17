@@ -25,6 +25,7 @@ module.exports = {
 
             //turn loader off
             document.getElementById("loader-overlay").classList.add("loader-fade-out");
+            
             function pointsOnMap(data) {
                 return {
                     "type": "FeatureCollection",

@@ -5,7 +5,8 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-const flightRoute = require('./routes/flights');
+const flight_route = require('./routes/flights.js');
+const airport_route = require("./routes/airports.js");
 
 //handle cors errors
 app.use(cors());
@@ -15,8 +16,9 @@ app.use(bodyParser.json());
 //client page
 app.use('/', express.static(path.join(__dirname + '/public/mainclient/build')));
 
-//Game
-app.use("/flights", flightRoute);
+
+app.use("/flights", flight_route);
+app.use("/airports", airport_route);
 
 
 //if no routes are found

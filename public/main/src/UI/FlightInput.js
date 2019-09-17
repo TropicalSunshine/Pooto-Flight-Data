@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
 import {renderLine, drawFlightRoute, moveCamera} from "../api/mapbox.js";
+import {getFirstAirportByCountry} from "../helpers/network.js";
 
 import {midPoint} from "../helpers/pointcalculations.js";
 import {geoPath} from "d3-geo";
@@ -39,38 +40,11 @@ export default class FlightInput extends Component {
                         />
                     </div>
                     <button onClick = {()=> {
-                    
-                        renderLine([
-                            [
-                                10.1953125,
-                                62.91523303947614
-                              ],
-                              [
-                                105.46875,
-                                33.7243396617476
-                              ]
-                        ]);
-
-                        var center = midPoint({
-                            lat: 10.1953125,
-                            long: 62.91523303947614
-                        },{
-                            lat: 105.46875,
-                            long: 33.7243396617476
+                        getFirstAirportByCountry(this.state.inputValue, (result) => {
+                            console.log(result);
+                            moveCamera([result[1], result[0]], 10);
                         });
 
-                        drawFlightRoute({
-                            lat: 10.1953125,
-                            long: 62.91523303947614
-                        }, {
-                            lat: 105.46875,
-                            long: 33.7243396617476
-                        })
-                        moveCamera([center.lat + 5, center.long], 3)
-
-                        this.setState({
-                            inputValue: ""
-                        })
                     }}>
                         Find
                     </button>

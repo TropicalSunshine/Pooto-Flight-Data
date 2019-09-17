@@ -9,11 +9,13 @@ var previousTime = null;
 
 
 var flight_data = {
-    all : []
+    all : [],
+    grounded: []
 };
 
 var fetchAllStates = () => {
-    var all_flights = [];
+    var in_air_flights = [];
+    var grouded_flights = [];
 
     axios.get("https://opensky-network.org/api/states/all")
     .then(response => {
@@ -22,17 +24,25 @@ var fetchAllStates = () => {
         {
             console.log("getting all flight data");
             response.data["states"].forEach(flight => {
-                all_flights.push( {
-                    "type": "Feature",
-                    "properties": {
-                        "grounded": flight[8].toString(),
-                        "country": flight[2]
-                    },
-                    "geometry": {
-                    "type": "Point",
-                    "coordinates": [flight[5], flight[6]],
-                    }
-                });
+                if(flight[8] == false)
+                {
+                    in_air_flights.push( {
+                        "type": "Feature",
+                        "properties": {
+                            "grounded": flight[8].toString(),
+                            "country": flight[2]
+                        },
+                        "geometry": {
+                        "type": "Point",
+                        "coordinates": [flight[5], flight[6]],
+                        }
+                    });
+                }
+                else if(flight[8])
+                {
+                    grounded_flights;
+                }
+
             });
         }
     flight_data["all"] = all_flights;

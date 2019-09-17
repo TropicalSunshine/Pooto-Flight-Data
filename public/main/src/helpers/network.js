@@ -1,19 +1,36 @@
+var url = "http://localhost:8181";
+
 
 module.exports = {
-    getAllFlightCord: function(action)
+    getAllFlightCord: function(callback)
     {
         var result = [];
 
-        fetch("http://localhost:8181/flights/all", {
+        fetch(url + "/flights/all", {
             method: "GET",
             body: null,
         }).then(res => res.json()).then(function(resp){
             console.log("fetch data", resp.data);
             result = resp.data;
-            action(result)
+            callback(result)
         }).catch(error => {
             console.log(error);
         });
  
+    },
+    getFirstAirportByCountry: function(country, callback){
+        country = country.toUpperCase();
+        
+        console.log(country);
+        fetch(url + "/airports/first/" + country, {
+            method: "GET",
+            body: null
+        }).then(res => res.json()).then((resp) => {
+            console.log(resp);
+
+            callback(resp.data);
+        }).catch(error => {
+            console.log(error);
+        })
     }
 }
