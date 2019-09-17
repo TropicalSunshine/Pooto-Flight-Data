@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import {initializeIcons} from "@uifabric/icons";
-
 
 import {_renderMap} from "./api/mapbox.js";
 
@@ -17,7 +15,6 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-initializeIcons();
 
 
 //from mapbox api

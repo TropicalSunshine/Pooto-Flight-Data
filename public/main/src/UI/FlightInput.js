@@ -4,6 +4,7 @@ import {renderLine, drawFlightRoute, moveCamera} from "../api/mapbox.js";
 
 import {midPoint} from "../helpers/pointcalculations.js";
 import {geoPath} from "d3-geo";
+import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 export default class FlightInput extends Component {
     constructor(){
@@ -24,18 +25,19 @@ export default class FlightInput extends Component {
             
             </svg>
         )
-        console.log(testSVG);
         return (
             <div id = "flightinput">
                 <div className = "flightinput-title">Pooto Flight Tracker</div>
-                <div>
-                    <input type = "input"
-                    value = {this.state.inputValue} 
-                    onChange = {(evt) => {
-                        this.setState({
-                            inputValue: evt.target.value
-                        })
-                    }}/>
+                    <div className = "flightinput-container">
+                        <TextField
+                        placeholder = "Enter Flight"
+                        onChange = {(evt, input) => {
+                            this.setState({
+                                inputValue: input
+                            })
+                        }}
+                        />
+                    </div>
                     <button onClick = {()=> {
                     
                         renderLine([
@@ -66,14 +68,12 @@ export default class FlightInput extends Component {
                         })
                         moveCamera([center.lat + 5, center.long], 3)
 
-                        console.log(geoPath());
                         this.setState({
                             inputValue: ""
                         })
                     }}>
                         Find
                     </button>
-                </div>
             </div>
         )
     }
