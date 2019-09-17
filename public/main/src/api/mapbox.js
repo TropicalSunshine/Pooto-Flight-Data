@@ -32,6 +32,9 @@ module.exports = {
                 }
             }
 
+
+
+            //load all flights
             getAllFlightCord((data) => {
                 MAP.addSource("flightsAll", {
                     type: "geojson",
@@ -74,7 +77,7 @@ module.exports = {
     },
     renderLine: function (matrix) {
         MAP.addLayer({
-            "id": "route",
+            "id": "line",
             "type": "line",
             "source": {
                 "type": "geojson",
@@ -97,6 +100,9 @@ module.exports = {
             }
         });
 
+    },
+    removeLine: function(){
+        MAP.removeLayer("line");
     },
     renderImage: function (img) {
 
@@ -172,6 +178,9 @@ module.exports = {
         };
 
         var flight_route_animate_interval = setInterval(animateFlightRoute, 1000/60);
+    },
+    removeFlightRoute: function(){
+        MAP.removeLayer("flight-route");
     },
     drawPulseDot: function (center) {
 
