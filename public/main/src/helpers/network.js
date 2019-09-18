@@ -17,9 +17,7 @@ module.exports = {
     },
     getAllGroundedCord: function(callback)
     {
-        var result = [];
-
-        fetch(url + "/flights/all", {
+        fetch(url + "/flights/grounded", {
             method: "GET",
             body: null,
         }).then(res => res.json()).then(function(resp){
@@ -29,10 +27,20 @@ module.exports = {
             console.log(error);
         });
     },
+    getAllAirports: function(callback){
+        fetch(url + "/airports/all", {
+            method: "GET",
+            body: null,
+        }).then(res => res.json()).then(function(resp){
+            console.log("getting all airports");
+            callback(resp.data)
+        }).catch(error => {
+            console.log(error);
+        });
+    },
     getFirstAirportByCountry: function(country, callback){
         country = country.toUpperCase();
         
-        console.log(country);
         fetch(url + "/airports/first/" + country, {
             method: "GET",
             body: null

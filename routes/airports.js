@@ -1,12 +1,32 @@
 const express = require("express");
 
+
 const airports = require("../data/airports.js").airports;
+const airports_all = require("../data/airports.js").airports_all;
 
 const router = express.Router();
 
 
 router.get("/all", (req, res, next) => {
-    var airports_all = [];
+    res.header("content-type", "application/json");
+
+    var result = [];
+    airports_all["all"].forEach((a) => {
+        result.push({
+            "type": "Feature",
+            "properties": {
+                "country": "null"
+            },
+            "geometry": {
+            "type": "Point",
+            "coordinates": [a[1], a[0]],
+            }
+        })
+    })
+    res.status(200).json({
+        message: "success",
+        data: result
+    })
 })
 
 router.get("/:country", (req, res, next) => {

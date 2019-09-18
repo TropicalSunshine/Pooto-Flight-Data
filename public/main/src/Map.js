@@ -11,6 +11,7 @@ export default class Map extends Component {
     }
 
     render() {
+
         var mapStyle = {
             position: "absolute",
             top: 0,

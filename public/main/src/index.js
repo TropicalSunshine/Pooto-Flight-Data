@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 
-import {_renderMap} from "./api/mapbox.js";
+import {_renderMap, plotGrounded, plotAirports} from "./api/mapbox.js";
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
@@ -19,6 +19,8 @@ serviceWorker.unregister();
 
 //from mapbox api
 _renderMap();
+plotGrounded();
+plotAirports();
 
 
 

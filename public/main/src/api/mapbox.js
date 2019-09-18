@@ -7,8 +7,11 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidHJvcGljYWx0b2Z1IiwiYSI6ImNrMGc5cWJjcDA1ZGMzY
 var MAP;
 
 var getAllFlightCord = require("../helpers/network.js").getAllFlightCord;
+var getAllGroundedCord = require("../helpers/network.js").getAllGroundedCord;
+var getAllAirports = require("../helpers/network.js").getAllAirports;
 
 
+var data_retrieve_interval = 2000;
 
 module.exports = {
     map: MAP,
@@ -45,6 +48,9 @@ module.exports = {
                     id: "flightsAll",
                     source: "flightsAll",
                     type: "circle",
+                    layout: {
+
+                    },
                     paint: {
                         "circle-radius": 4,
                         "circle-color": "green"
@@ -65,9 +71,85 @@ module.exports = {
 
 
 
-            var all_flight_interval = setInterval(updateFlights, 2000);
+            var all_flight_interval = setInterval(updateFlights, data_retrieve_interval);
         });
 
+    },
+    toggleLayer: function (ID, show) {
+        if (show) {
+            MAP.setLayoutProperty(ID, 'visibility', "visible");
+        } else {
+            MAP.setLayoutProperty(ID, "visibility", "none")
+        }
+
+        //MAP.setLayoutProperty(ID, 'visibility',(layer.layout.visibility )layerID.indexOf(value) > -1 ? 'visible' : 'none');
+    },
+    plotGrounded: function () {
+
+        //load all flights
+        getAllGroundedCord((data) => {
+            MAP.addSource("flightsGrounded", {
+                type: "geojson",
+                data: {
+                    "type": "FeatureCollection",
+                    "features": data
+                }
+            });
+
+            MAP.addLayer({
+                id: "flightsGrounded",
+                source: "flightsGrounded",
+                type: "circle",
+                layout: {
+
+                },
+                paint: {
+                    "circle-radius": 4,
+                    "circle-color": "red"
+                }
+            });
+        });
+
+        function updateGrounded() {
+            getAllGroundedCord((data) => {
+                if (data != [] || data != undefined) {
+                    MAP.getSource("flightsGrounded").setData({
+                        "type": "FeatureCollection",
+                        "features": data
+                    });
+                }
+            })
+        }
+
+        var grounded_flights_interval = setInterval(updateGrounded, data_retrieve_interval);
+    },
+    plotAirports: function () {
+        getAllAirports((data) => {
+
+            MAP.on("load", function () {
+                console.log(data);
+                MAP.addSource("Airports", {
+                    type: "geojson",
+                    data: {
+                        "type": "FeatureCollection",
+                        "features": data
+                    }
+                    });
+
+                MAP.addLayer({
+                    id: "Airports",
+                    source: "Airports",
+                    type: "circle",
+                    layout: {
+
+                    },
+                    paint: {
+                        "circle-radius": 4,
+                        "circle-color": "blue"
+                    }
+                });
+            })
+        });
     },
     renderLine: function (matrix) {
         MAP.addLayer({
@@ -95,15 +177,13 @@ module.exports = {
         });
 
     },
-    removeLine: function(){
+    removeLine: function () {
         MAP.removeLayer("line");
     },
     renderImage: function (img) {
 
     },
     drawFlightRoute: function (start, end) {
-        console.log("start", start);
-        console.log("end", end);
 
         var rightAngleCoords = {
             lat: Math.abs(start.lat - end.lat),
@@ -151,13 +231,12 @@ module.exports = {
             }
         });
 
-        function animateFlightRoute(){
+        function animateFlightRoute() {
 
             line_end.lat += lat_increment;
             line_end.long += long_increment;
 
-            if(frameCount == 100)
-            {
+            if (frameCount == 100) {
                 frameCount = 0;
                 line_end.lat = start.lat;
                 line_end.long = start.long;
@@ -171,9 +250,9 @@ module.exports = {
             MAP.getSource('flight-route').setData(flight_route_geojson);
         };
 
-        var flight_route_animate_interval = setInterval(animateFlightRoute, 1000/60);
+        var flight_route_animate_interval = setInterval(animateFlightRoute, 1000 / 60);
     },
-    removeFlightRoute: function(){
+    removeFlightRoute: function () {
         MAP.removeLayer("flight-route");
     },
     drawPulseDot: function (center) {

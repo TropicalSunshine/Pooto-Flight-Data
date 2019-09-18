@@ -20,7 +20,6 @@ var fetchAllStates = () => {
         if(previousTime == response.data["time"]) null; 
         else
         {
-            console.log("getting all flight data");
             response.data["states"].forEach(flight => {
                 if(flight[8] == false)
                 {
