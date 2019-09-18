@@ -48,15 +48,32 @@ button {
   z-index: 1;
   width: 100%;
   font-family: system-ui, sans-serif;
-  text-align: right;;
+  text-align: right;
+  right: 20px;
+  display: block;
 }
 
 .flightinput-title
 {
-  color: Green;
+  color: #40a740;
+  font-size: 60px;
+}
+
+.flight-input-stats{
+  text-align: left;
+  float:right;
+  width: 300px;
+  height:100px;
+}
+
+.flight-input-stats-num{
   font-size: 40px;
 }
 
+.flight-input-stats-desc{
+  color:white; 
+}
+  
 .path{
   stroke-dasharray: 1000;
   stroke-dashoffset: 1000;
@@ -169,7 +186,6 @@ button {
 
 .settings-tab-window
 {
-
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
   z-index: 2;
@@ -178,6 +194,7 @@ button {
   height: 200px;
   width: 150px;
   bottom: 100px;
+  right: -250px;
 }
 
 .settings-tab-control

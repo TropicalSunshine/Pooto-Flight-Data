@@ -16,12 +16,15 @@ var data_retrieve_interval = 2000;
 module.exports = {
     map: MAP,
     _renderMap: function () {
+
+        var d = new Date();
+        var style = (d.getHours() >= 17) ?'mapbox://styles/mapbox/dark-v10' : 'mapbox://styles/mapbox/light-v10'
         MAP = new mapboxgl.Map({
             container: 'Map',
             style: 'mapbox://styles/mapbox/streets-v11',
             zoom: 3,
             center: [-96, 37.8],
-            style: 'mapbox://styles/mapbox/light-v10'
+            style: 'mapbox://styles/mapbox/dark-v10'
         });
 
         MAP.on("load", function () {

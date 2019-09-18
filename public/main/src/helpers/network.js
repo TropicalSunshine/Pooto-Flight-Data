@@ -32,7 +32,7 @@ module.exports = {
             method: "GET",
             body: null,
         }).then(res => res.json()).then(function(resp){
-            console.log("getting all airports");
+            console.log("getting all airports", resp.data);
             callback(resp.data)
         }).catch(error => {
             console.log(error);

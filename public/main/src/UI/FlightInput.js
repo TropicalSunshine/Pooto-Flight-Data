@@ -11,7 +11,10 @@ export default class FlightInput extends Component {
     constructor(){
         super();
         this.state = {
-            inputValue: ""
+            inputValue: "",
+            numFlights: 0,
+            numGrounded: 0,
+            blink: false
         }
     }
     render() {
@@ -26,9 +29,29 @@ export default class FlightInput extends Component {
             
             </svg>
         )
+
+
         return (
             <div id = "flightinput">
-                <div className = "flightinput-title">Pooto Flight Tracker</div>
+                <div className = "flightinput-title">World Flight Data</div>
+                    <div style = {{width: "100%", height: "100px"}}>
+                        <div className = "flight-input-stats">
+                            <div className = "flight-input-stats-num" style = {{color: "green"}}>{this.state.numFlights} Aircrafts</div>
+                            <div className = "flight-input-stats-desc">Aircafts in the Sky</div>
+                        </div>     
+                    </div>
+                    <div style = {{width: "100%", height: "100px"}}>
+                        <div className = "flight-input-stats">
+                            <div className = "flight-input-stats-num" style = {{color: "red"}}>{this.state.numGrounded} Grounded</div>
+                            <div className = "flight-input-stats-desc">Aircrafts on the Ground</div>
+                        </div>     
+                    </div>
+                    <div style = {{width: "100%", height: "100px"}}>
+                        <div className = "flight-input-stats">
+                            <div className = "flight-input-stats-num" style = {{color: "blue"}}> 4188 Airports</div>
+                            <div className = "flight-input-stats-desc"> Major Airports </div>
+                        </div>     
+                    </div>
                     <div className = "flightinput-container">
                         <TextField
                         placeholder = "Enter Flight"

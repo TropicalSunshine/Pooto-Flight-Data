@@ -9,11 +9,13 @@ import Loader from "./UI/Loader.js";
 
 export default class Overlay extends Component {
     render() {
+        var d = new Date();
+        var time = (d.getHours() >= 17) ? "day" : "night";
 
         return (
             <div id = "overlay">
                 <Loader name = "overlay"/>
-                <FlightInput/>
+                <FlightInput day = {"night"}/>
                 <MapControls/>
                 <SettingsTab/>
                 <Map/>
