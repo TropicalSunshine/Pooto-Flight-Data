@@ -4,6 +4,11 @@ const airports = require("../data/airports.js").airports;
 
 const router = express.Router();
 
+
+router.get("/all", (req, res, next) => {
+    var airports_all = [];
+})
+
 router.get("/:country", (req, res, next) => {
     var country = req.params.country.toUpperCase();
 
