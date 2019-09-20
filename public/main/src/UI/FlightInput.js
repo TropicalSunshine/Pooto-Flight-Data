@@ -14,6 +14,8 @@ export default class FlightInput extends Component {
     constructor(){
         super();
         this.state = {
+            flightColor: "#04e000",
+            groundedColor: "#ff0026",
             inputValue: "",
             numFlights: 0,
             numGrounded: 0,
@@ -22,7 +24,7 @@ export default class FlightInput extends Component {
 
         this.blinkFlight.bind(this);
         this.blinkGrounded.bind(this);
-        
+
     }
 
     componentDidMount(){
@@ -32,9 +34,12 @@ export default class FlightInput extends Component {
         var num_grounded = 0;
 
         this._data_interval = setInterval(()=> {
+
             num_flights = getNumFlights();
             num_grounded = getNumGrounded();
 
+            if(num_flights != that.state.numFlights) 
+            if(num_grounded != that.state.numGrounded)
 
             that.setState({
                 inputValue: that.state.inputValue,
@@ -75,13 +80,13 @@ export default class FlightInput extends Component {
             <div id = "flightinput">
                 <div className = "flightinput-title">World Flight Data</div>
                     <div style = {{width: "100%", height: "100px"}}>
-                        <div className = "flight-input-stats" style = {{backgroundColor: "#04e000"}}>
+                        <div className = "flight-input-stats" style = {{backgroundColor: that.state.flightColor}}>
                             <div className = "flight-input-stats-num" >{this.state.numFlights} In Flight</div>
                             <div className = "flight-input-stats-desc">Aircafts in the Sky</div>
                         </div>     
                     </div>
                     <div style = {{width: "100%", height: "100px"}}>
-                        <div className = "flight-input-stats" style = {{backgroundColor: "#ff0026"}}>
+                        <div className = "flight-input-stats" style = {{backgroundColor: that.state.groundedColor}}>
                             <div className = "flight-input-stats-num" >{this.state.numGrounded} Grounded</div>
                             <div className = "flight-input-stats-desc">Aircrafts on the Ground</div>
                         </div>     
