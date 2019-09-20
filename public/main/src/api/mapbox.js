@@ -45,6 +45,8 @@ module.exports = {
 
             //load all flights
             getAllFlightCord((data) => {
+                numFlights = data.length;
+
                 MAP.addSource("flightsAll", {
                     type: "geojson",
                     data: pointsOnMap(data)
@@ -94,42 +96,46 @@ module.exports = {
     plotGrounded: function () {
 
         //load all flights
-        getAllGroundedCord((data) => {
-            MAP.addSource("flightsGrounded", {
-                type: "geojson",
-                data: {
-                    "type": "FeatureCollection",
-                    "features": data
-                }
-            });
-
-            MAP.addLayer({
-                id: "flightsGrounded",
-                source: "flightsGrounded",
-                type: "circle",
-                layout: {
-
-                },
-                paint: {
-                    "circle-radius": 4,
-                    "circle-color": "red"
-                }
-            });
-        });
-
-        function updateGrounded() {
+        MAP.on("load", function () {
             getAllGroundedCord((data) => {
                 numGrounded = data.length;
-                if (data != [] || data != undefined) {
-                    MAP.getSource("flightsGrounded").setData({
+                MAP.addSource("flightsGrounded", {
+                    type: "geojson",
+                    data: {
                         "type": "FeatureCollection",
                         "features": data
-                    });
-                }
-            })
-        }
+                    }
+                });
 
-        var grounded_flights_interval = setInterval(updateGrounded, data_retrieve_interval);
+                MAP.addLayer({
+                    id: "flightsGrounded",
+                    source: "flightsGrounded",
+                    type: "circle",
+                    layout: {
+
+                    },
+                    paint: {
+                        "circle-radius": 4,
+                        "circle-color": "red"
+                    }
+                });
+            });
+
+            function updateGrounded() {
+                getAllGroundedCord((data) => {
+                    numGrounded = data.length;
+                    console.log("grounded", data);
+                    if (data != [] ) {
+                        MAP.getSource("flightsGrounded").setData({
+                            "type": "FeatureCollection",
+                            "features": data
+                        });
+                    }
+                })
+            }
+          
+            var grounded_flights_interval = setInterval(updateGrounded, data_retrieve_interval);
+        });
     },
     plotAirports: function () {
         getAllAirports((data) => {
@@ -292,13 +298,13 @@ module.exports = {
                 context.clearRect(0, 0, this.width, this.height);
                 context.beginPath();
                 context.arc(this.width / 2, this.height / 2, outerRadius, 0, Math.PI * 2);
-                context.fillStyle = 'rgba(110, 197, 255,' + (1 - t) + ')';
+                context.fillStyle = 'rgba(252, 0, 126,' + (1 - t) + ')';
                 context.fill();
 
                 //inner circle
                 context.beginPath();
                 context.arc(this.width / 2, this.height / 2, radius, 0, Math.PI * 2);
-                context.fillStyle = 'rgba(3, 152, 252, 1)';
+                context.fillStyle = 'rgba(252, 3, 86, 1)';
                 context.strokeStyle = 'white';
                 context.lineWidth = 2 + 4 * (1 - t);
                 context.fill();

@@ -19,16 +19,27 @@ export default class FlightInput extends Component {
             numGrounded: 0,
             blink: false
         }
+
+        this.blinkFlight.bind(this);
+        this.blinkGrounded.bind(this);
+        
     }
 
     componentDidMount(){
         var that = this;
 
+        var num_flights = 0;
+        var num_grounded = 0;
+
         this._data_interval = setInterval(()=> {
-            this.setState({
+            num_flights = getNumFlights();
+            num_grounded = getNumGrounded();
+
+
+            that.setState({
                 inputValue: that.state.inputValue,
-                numFlights: getNumFlights(),
-                numGrounded: getNumGrounded(),
+                numFlights: num_flights,
+                numGrounded: num_grounded,
                 blink: that.state.blink
             })
         }, 2000);
@@ -36,6 +47,14 @@ export default class FlightInput extends Component {
 
     componentWillUnmount(){
         clearInterval(this._data_interval);
+    }
+
+    blinkFlight(){
+
+    }
+
+    blinkGrounded(){
+
     }
 
     render() {
@@ -56,20 +75,20 @@ export default class FlightInput extends Component {
             <div id = "flightinput">
                 <div className = "flightinput-title">World Flight Data</div>
                     <div style = {{width: "100%", height: "100px"}}>
-                        <div className = "flight-input-stats">
-                            <div className = "flight-input-stats-num" style = {{color: "#04e000"}}>{this.state.numFlights} In Flight</div>
+                        <div className = "flight-input-stats" style = {{backgroundColor: "#04e000"}}>
+                            <div className = "flight-input-stats-num" >{this.state.numFlights} In Flight</div>
                             <div className = "flight-input-stats-desc">Aircafts in the Sky</div>
                         </div>     
                     </div>
                     <div style = {{width: "100%", height: "100px"}}>
-                        <div className = "flight-input-stats">
-                            <div className = "flight-input-stats-num" style = {{color: "#ff0026"}}>{this.state.numGrounded} Grounded</div>
+                        <div className = "flight-input-stats" style = {{backgroundColor: "#ff0026"}}>
+                            <div className = "flight-input-stats-num" >{this.state.numGrounded} Grounded</div>
                             <div className = "flight-input-stats-desc">Aircrafts on the Ground</div>
                         </div>     
                     </div>
                     <div style = {{width: "100%", height: "100px"}}>
-                        <div className = "flight-input-stats">
-                            <div className = "flight-input-stats-num" style = {{color: "#0084ff"}}> 4188 Airports</div>
+                        <div className = "flight-input-stats" style = {{backgroundColor: "#0084ff"}}>
+                            <div className = "flight-input-stats-num" > 4188 Airports</div>
                             <div className = "flight-input-stats-desc"> Major Airports </div>
                         </div>     
                     </div>

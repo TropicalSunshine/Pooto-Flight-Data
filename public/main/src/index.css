@@ -57,19 +57,24 @@ button {
 
 .flightinput-title
 {
+  text-align: center;
+  user-select: none;
   color: #acff68;
   font-size: 90px;
 }
 
 .flight-input-stats{
-  text-align: left;
+  margin: 8px 0;
+  border-radius: 30px;
+  color: white;
+  text-align: center;
   float:right;
   width: 400px;
   height:100px;
 }
 
 .flight-input-stats-num{
-  font-size: 60px;
+  font-size: 55px;
 }
 
 .flight-input-stats-desc{

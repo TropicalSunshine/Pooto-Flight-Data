@@ -20,6 +20,11 @@ var fetchAllStates = () => {
         if(previousTime == response.data["time"]) null; 
         else
         {
+            
+            flight_data["all"] = [];
+            flight_data["grounded"] = [];
+
+            
             response.data["states"].forEach(flight => {
                 if(flight[8] == false)
                 {
@@ -36,6 +41,7 @@ var fetchAllStates = () => {
                 }
                 else if(flight[8])
                 {
+
                     flight_data["grounded"].push({
                         "type": "Feature",
                         "properties": {
