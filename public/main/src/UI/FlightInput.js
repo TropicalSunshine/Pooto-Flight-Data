@@ -38,14 +38,12 @@ export default class FlightInput extends Component {
             num_flights = getNumFlights();
             num_grounded = getNumGrounded();
 
-            if(num_flights != that.state.numFlights) 
-            if(num_grounded != that.state.numGrounded)
+            if(num_flights != that.state.numFlights)  this.blinkFlight();
+            if(num_grounded != that.state.numGrounded) this.blinkGrounded()
 
             that.setState({
-                inputValue: that.state.inputValue,
                 numFlights: num_flights,
-                numGrounded: num_grounded,
-                blink: that.state.blink
+                numGrounded: num_grounded
             })
         }, 2000);
     }
@@ -55,11 +53,29 @@ export default class FlightInput extends Component {
     }
 
     blinkFlight(){
+        var that = this;
 
+        this.setState({
+            flightColor: "#000000"
+        })
+        setTimeout(() => {
+            that.setState({
+                flightColor: "#04e000"
+            })    
+        }, 300);
     }
 
     blinkGrounded(){
+        var that = this;
 
+        this.setState({
+            groundedColor: "#000000"
+        })
+        setTimeout(() => {
+            that.setState({
+                groundedColor: "#ff0026"
+            })    
+        }, 300);
     }
 
     render() {
@@ -80,13 +96,13 @@ export default class FlightInput extends Component {
             <div id = "flightinput">
                 <div className = "flightinput-title">World Flight Data</div>
                     <div style = {{width: "100%", height: "100px"}}>
-                        <div className = "flight-input-stats" style = {{backgroundColor: that.state.flightColor}}>
+                        <div className = "flight-input-stats" style = {{backgroundColor: this.state.flightColor}}>
                             <div className = "flight-input-stats-num" >{this.state.numFlights} In Flight</div>
                             <div className = "flight-input-stats-desc">Aircafts in the Sky</div>
                         </div>     
                     </div>
                     <div style = {{width: "100%", height: "100px"}}>
-                        <div className = "flight-input-stats" style = {{backgroundColor: that.state.groundedColor}}>
+                        <div className = "flight-input-stats" style = {{backgroundColor: this.state.groundedColor}}>
                             <div className = "flight-input-stats-num" >{this.state.numGrounded} Grounded</div>
                             <div className = "flight-input-stats-desc">Aircrafts on the Ground</div>
                         </div>     
