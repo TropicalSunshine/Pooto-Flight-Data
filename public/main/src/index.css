@@ -29,6 +29,8 @@ button {
 
 .flightinput-container
 {
+  width: 100%;
+  text-align: left;
   float:right;
   width: 200px;
 }
@@ -46,7 +48,7 @@ button {
 {
   position: absolute;
   z-index: 1;
-  width: 100%;
+  width: 700px;
   font-family: system-ui, sans-serif;
   text-align: right;
   right: 20px;
@@ -55,19 +57,19 @@ button {
 
 .flightinput-title
 {
-  color: #40a740;
-  font-size: 60px;
+  color: #acff68;
+  font-size: 90px;
 }
 
 .flight-input-stats{
   text-align: left;
   float:right;
-  width: 300px;
+  width: 400px;
   height:100px;
 }
 
 .flight-input-stats-num{
-  font-size: 40px;
+  font-size: 60px;
 }
 
 .flight-input-stats-desc{

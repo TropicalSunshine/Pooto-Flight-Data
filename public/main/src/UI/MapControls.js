@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
-import {moveCamera, drawPulseDot, drawFlightRoute} from "../api/mapbox.js";
+import {moveCamera, drawPulseDot} from "../api/mapbox.js";
 
 
 export default class MapControls extends Component {

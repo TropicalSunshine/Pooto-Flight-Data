@@ -1,7 +1,10 @@
 
 import React, { Component } from 'react'
-import {renderLine, drawFlightRoute, moveCamera} from "../api/mapbox.js";
+import {renderLine, drawFlightRoute, moveCamera, getNumFlights, getNumGrounded} from "../api/mapbox.js";
 import {getFirstAirportByCountry} from "../helpers/network.js";
+
+
+
 
 import {midPoint} from "../helpers/pointcalculations.js";
 import {geoPath} from "d3-geo";
@@ -17,6 +20,24 @@ export default class FlightInput extends Component {
             blink: false
         }
     }
+
+    componentDidMount(){
+        var that = this;
+
+        this._data_interval = setInterval(()=> {
+            this.setState({
+                inputValue: that.state.inputValue,
+                numFlights: getNumFlights(),
+                numGrounded: getNumGrounded(),
+                blink: that.state.blink
+            })
+        }, 2000);
+    }
+
+    componentWillUnmount(){
+        clearInterval(this._data_interval);
+    }
+
     render() {
 
         var testSVG = (
@@ -36,19 +57,19 @@ export default class FlightInput extends Component {
                 <div className = "flightinput-title">World Flight Data</div>
                     <div style = {{width: "100%", height: "100px"}}>
                         <div className = "flight-input-stats">
-                            <div className = "flight-input-stats-num" style = {{color: "green"}}>{this.state.numFlights} Aircrafts</div>
+                            <div className = "flight-input-stats-num" style = {{color: "#04e000"}}>{this.state.numFlights} In Flight</div>
                             <div className = "flight-input-stats-desc">Aircafts in the Sky</div>
                         </div>     
                     </div>
                     <div style = {{width: "100%", height: "100px"}}>
                         <div className = "flight-input-stats">
-                            <div className = "flight-input-stats-num" style = {{color: "red"}}>{this.state.numGrounded} Grounded</div>
+                            <div className = "flight-input-stats-num" style = {{color: "#ff0026"}}>{this.state.numGrounded} Grounded</div>
                             <div className = "flight-input-stats-desc">Aircrafts on the Ground</div>
                         </div>     
                     </div>
                     <div style = {{width: "100%", height: "100px"}}>
                         <div className = "flight-input-stats">
-                            <div className = "flight-input-stats-num" style = {{color: "blue"}}> 4188 Airports</div>
+                            <div className = "flight-input-stats-num" style = {{color: "#0084ff"}}> 4188 Airports</div>
                             <div className = "flight-input-stats-desc"> Major Airports </div>
                         </div>     
                     </div>
@@ -61,16 +82,16 @@ export default class FlightInput extends Component {
                             })
                         }}
                         />
-                    </div>
-                    <button onClick = {()=> {
-                        getFirstAirportByCountry(this.state.inputValue, (result) => {
-                            console.log(result);
-                            moveCamera([result[1], result[0]], 10);
-                        });
+                        <button onClick = {()=> {
+                            getFirstAirportByCountry(this.state.inputValue, (result) => {
+                                console.log(result);
+                                moveCamera([result[1], result[0]], 10);
+                            });
 
-                    }}>
-                        Find
-                    </button>
+                        }}>
+                            Find
+                        </button>
+                    </div>
             </div>
         )
     }

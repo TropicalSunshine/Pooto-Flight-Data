@@ -4,7 +4,6 @@ var calc = require("../helpers/pointcalculations.js");
 var mapboxgl = require("mapbox-gl/dist/mapbox-gl.js");
 mapboxgl.accessToken = 'pk.eyJ1IjoidHJvcGljYWx0b2Z1IiwiYSI6ImNrMGc5cWJjcDA1ZGMzY241aGtoeWJnczYifQ.1lkF8CRWw2bxBUsnBKd4Aw';
 
-var MAP;
 
 var getAllFlightCord = require("../helpers/network.js").getAllFlightCord;
 var getAllGroundedCord = require("../helpers/network.js").getAllGroundedCord;
@@ -13,9 +12,13 @@ var getAllAirports = require("../helpers/network.js").getAllAirports;
 
 var data_retrieve_interval = 2000;
 
+var MAP;
+var numFlights = 0;
+var numGrounded = 0;
+
 module.exports = {
     map: MAP,
-    _renderMap: function () {
+    renderMap: function () {
 
         var d = new Date();
         var style = (d.getHours() >= 17) ?'mapbox://styles/mapbox/dark-v10' : 'mapbox://styles/mapbox/light-v10'
@@ -66,6 +69,7 @@ module.exports = {
 
             function updateFlights() {
                 getAllFlightCord((data) => {
+                    numFlights = data.length;
                     if (data != []) {
                         MAP.getSource("flightsAll").setData(pointsOnMap(data));
                     }
@@ -115,6 +119,7 @@ module.exports = {
 
         function updateGrounded() {
             getAllGroundedCord((data) => {
+                numGrounded = data.length;
                 if (data != [] || data != undefined) {
                     MAP.getSource("flightsGrounded").setData({
                         "type": "FeatureCollection",
@@ -154,6 +159,12 @@ module.exports = {
             })
         });
     },
+    getNumFlights: function(){
+        return numFlights;
+    },
+    getNumGrounded: function(){
+        return numGrounded;
+    },
     renderLine: function (matrix) {
         MAP.addLayer({
             "id": "line",
@@ -182,9 +193,6 @@ module.exports = {
     },
     removeLine: function () {
         MAP.removeLayer("line");
-    },
-    renderImage: function (img) {
-
     },
     drawFlightRoute: function (start, end) {
 
@@ -336,4 +344,4 @@ module.exports = {
             zoom: zoom
         })
     }
-}
+};
