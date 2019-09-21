@@ -8,7 +8,7 @@ module.exports = {
             method: "GET",
             body: null,
         }).then(res => res.json()).then(function(resp){
-            console.log("fetch data", resp.data);
+            
             callback(resp.data)
         }).catch(error => {
             console.log(error);
@@ -21,7 +21,7 @@ module.exports = {
             method: "GET",
             body: null,
         }).then(res => res.json()).then(function(resp){
-            console.log("fetch data", resp.data);
+            
             callback(resp.data)
         }).catch(error => {
             console.log(error);

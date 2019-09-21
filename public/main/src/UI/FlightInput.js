@@ -14,6 +14,7 @@ export default class FlightInput extends Component {
     constructor(){
         super();
         this.state = {
+            currentView: "World",
             flightColor: "#04e000",
             groundedColor: "#ff0026",
             inputValue: "",
@@ -94,7 +95,7 @@ export default class FlightInput extends Component {
 
         return (
             <div id = "flightinput">
-                <div className = "flightinput-title">World Flight Data</div>
+                <div className = "flightinput-current-view">{this.state.currentView}</div>
                     <div style = {{width: "100%", height: "100px"}}>
                         <div className = "flight-input-stats" style = {{backgroundColor: this.state.flightColor}}>
                             <div className = "flight-input-stats-num" >{this.state.numFlights} In Flight</div>
@@ -124,8 +125,7 @@ export default class FlightInput extends Component {
                         />
                         <button onClick = {()=> {
                             getFirstAirportByCountry(this.state.inputValue, (result) => {
-                                console.log(result);
-                                moveCamera([result[1], result[0]], 10);
+                                moveCamera([result.long, result.lat], 10);
                             });
 
                         }}>

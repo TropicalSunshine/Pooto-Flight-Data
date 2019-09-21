@@ -124,7 +124,6 @@ module.exports = {
             function updateGrounded() {
                 getAllGroundedCord((data) => {
                     numGrounded = data.length;
-                    console.log("grounded", data);
                     if (data != [] ) {
                         MAP.getSource("flightsGrounded").setData({
                             "type": "FeatureCollection",
@@ -141,7 +140,6 @@ module.exports = {
         getAllAirports((data) => {
 
             MAP.on("load", function () {
-                console.log(data);
                 MAP.addSource("Airports", {
                     type: "geojson",
                     data: {

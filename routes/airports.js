@@ -36,7 +36,7 @@ router.get("/:country", (req, res, next) => {
     if(airports[country] != undefined){
         res.status(200).json({
             message: "success",
-            data: airports[country]
+            data: airports[country]["airports"]
         })
     }
     else{
@@ -56,7 +56,7 @@ router.get("/first/:country", (req, res, next) => {
     if(airports[country] != undefined){
         res.status(200).json({
             message: "success",
-            data: airports[country][0]
+            data: airports[country]["airports"][0]
         })
     }
     else{

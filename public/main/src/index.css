@@ -57,7 +57,8 @@ button {
 
 .flightinput-current-view
 {
-  text-align: center;
+  text-transform: uppercase;
+  text-align: right;
   user-select: none;
   color: #acff68;
   font-size: 85px;
