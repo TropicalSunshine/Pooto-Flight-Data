@@ -1,25 +1,24 @@
 
 import React, { Component } from 'react'
-import {renderLine, drawFlightRoute, moveCamera, getNumFlights, getNumGrounded} from "../api/mapbox.js";
+
+
+import {renderLine, drawFlightRoute, moveCamera} from "../api/mapbox.js";
 import {getFirstAirportByCountry} from "../helpers/network.js";
 
 
+export default class FlightData extends Component {
+    constructor(props){
+        super(props);
 
-
-import {midPoint} from "../helpers/pointcalculations.js";
-import {geoPath} from "d3-geo";
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
-
-export default class FlightInput extends Component {
-    constructor(){
-        super();
+        var that = this;
         this.state = {
-            currentView: "World",
+            currentView: that.props.view,
             flightColor: "#04e000",
             groundedColor: "#ff0026",
             inputValue: "",
-            numFlights: 0,
-            numGrounded: 0,
+            numAirports: that.props.airports,
+            numFlights: that.props.flights,
+            numGrounded: that.props.grounded,
             blink: false
         }
 
@@ -29,24 +28,32 @@ export default class FlightInput extends Component {
     }
 
     componentDidMount(){
+
+    }
+
+    componentDidUpdate(prevProps){
         var that = this;
+        if(prevProps.airports != this.props.airports){
+           this.setState({
+               numAirports: that.props.airports
+           }) 
+        }
+        
+        if(prevProps.grounded != this.props.grounded){
+            this.blinkGrounded()
+            this.setState({
+                numGrounded: that.props.grounded
+            }) 
+        }
 
-        var num_flights = 0;
-        var num_grounded = 0;
+        if(prevProps.flights != this.props.flights){
+            this.blinkFlight();
+            this.setState({
+                numFlights: that.props.flights
+            }) 
+        }
 
-        this._data_interval = setInterval(()=> {
-
-            num_flights = getNumFlights();
-            num_grounded = getNumGrounded();
-
-            if(num_flights != that.state.numFlights)  this.blinkFlight();
-            if(num_grounded != that.state.numGrounded) this.blinkGrounded()
-
-            that.setState({
-                numFlights: num_flights,
-                numGrounded: num_grounded
-            })
-        }, 2000);
+        
     }
 
     componentWillUnmount(){
@@ -110,27 +117,9 @@ export default class FlightInput extends Component {
                     </div>
                     <div style = {{width: "100%", height: "100px"}}>
                         <div className = "flight-input-stats" style = {{backgroundColor: "#0084ff"}}>
-                            <div className = "flight-input-stats-num" > 4188 Airports</div>
+                            <div className = "flight-input-stats-num" > {this.state.numAirports} Airports</div>
                             <div className = "flight-input-stats-desc"> Major Airports </div>
                         </div>     
-                    </div>
-                    <div className = "flightinput-container">
-                        <TextField
-                        placeholder = "Enter Flight"
-                        onChange = {(evt, input) => {
-                            this.setState({
-                                inputValue: input
-                            })
-                        }}
-                        />
-                        <button onClick = {()=> {
-                            getFirstAirportByCountry(this.state.inputValue, (result) => {
-                                moveCamera([result.long, result.lat], 10);
-                            });
-
-                        }}>
-                            Find
-                        </button>
                     </div>
             </div>
         )
