@@ -1,6 +1,8 @@
 import {Icon} from "office-ui-fabric-react/lib/Icon";
-
+import {moveCamera} from "../api/mapbox.js";
 import React, { Component } from 'react'
+
+import {getDepaturesByIcao, getArrivalsByIcao} from "../helpers/network.js";
 
 
 export default class AirportDataPanel extends Component {
@@ -15,8 +17,12 @@ export default class AirportDataPanel extends Component {
 
         var airport_data_components = that.props.airportsData.map((data, i) => 
             <AirportDataComponent 
+            lat = {data["lat"]}
+            long = {data["long"]}
             key = {"data-comp-" + i} 
-            icao = {data["icao24"]}/>
+            icao = {data["icao24"]}
+            name = {data["name"]}
+            />
         );
 
         return (
@@ -38,9 +44,15 @@ export default class AirportDataPanel extends Component {
 
 function AirportDataComponent(props){
 
+    getArrivalsByIcao(props.icao, (result) => {
+        console.log("arrivals by icao");
+        console.log(result);
+    })
     return (
         <div className = "airport-data-component">
-
+            <div onClick = {() => {
+                moveCamera([props.long, props.lat], 10);
+            }}>{props.name}</div>
         </div>
     );
 }

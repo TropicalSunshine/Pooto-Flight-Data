@@ -296,8 +296,8 @@ button {
 .airport-data-panel-content{
   overflow: auto;
   height: 100%;
-  margin: 10px 8px;
-  margin-top: 40px;
+  margin: 40px 8px;
+  margin-bottom: 50px;
   display: block;
 }
 
@@ -306,7 +306,7 @@ button {
 .airport-data-component{
   background-color: #919191;
   border-radius: 20px;
-  width: 80%;
+  width: 90%;
   margin: 40px auto;
   height: 100px;
 }

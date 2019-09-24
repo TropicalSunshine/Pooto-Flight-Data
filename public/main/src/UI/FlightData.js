@@ -33,10 +33,17 @@ export default class FlightData extends Component {
 
     componentDidUpdate(prevProps){
         var that = this;
+
+        if(prevProps.view !== this.props.view){
+            this.setState({
+                currentView: that.props.view
+            });
+        }
+
         if(prevProps.airports != this.props.airports){
            this.setState({
                numAirports: that.props.airports
-           }) 
+           });
         }
         
         if(prevProps.grounded != this.props.grounded){

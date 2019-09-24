@@ -51,5 +51,39 @@ module.exports = {
         }).catch(error => {
             console.log(error);
         })
+    },
+    getAirportsByCountry: function(country, callback){
+        country = country.toUpperCase();
+        
+        fetch(url + "/airports/" + country, {
+            method: "GET",
+            body: null
+        }).then(res => res.json()).then((resp)=> {
+            console.log(resp);
+
+            callback(resp)
+        })
+    },
+    getDeparturesByIcao: function(icao, callback){
+        fetch(url + "/airports/departure/icao24/" + icao, {
+            method: "GET",
+            body: null
+        }).then(res => res.json()).then((resp)=> {
+            console.log(resp);
+
+            callback(resp)
+        })
+    },
+    getArrivalsByIcao: function(icao, callback){
+        console.log("fetching icao");
+        fetch(url + "/airports/arrivals/icao24/" + icao, {
+            method: "GET",
+            body: null
+        }).then(res => res.json()).then((resp)=> {
+            console.log(resp);
+
+            callback(resp)
+        }) 
     }
+    
 }

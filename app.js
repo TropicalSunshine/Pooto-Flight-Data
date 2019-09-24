@@ -10,7 +10,6 @@ const airport_route = require("./routes/airports.js");
 
 //handle cors errors
 app.use(cors());
-
 app.use(bodyParser.json());
 
 //client page
