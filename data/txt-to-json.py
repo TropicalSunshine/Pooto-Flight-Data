@@ -36,7 +36,9 @@ with open("airports.dat.txt", encoding="utf8" ) as fp:
                 "icao24": data[5].strip('\"'),
                 "lat": lat,
                 "long": long,
-                "name": data[1].strip('\"')
+                "name": data[1].strip('\"'),
+                "city": data[2].strip('\"'), 
+                "timezone": data[9]
             })
         else:
             jsonObj[country]["num_airports"] += 1
@@ -57,7 +59,9 @@ with open("airports.dat.txt", encoding="utf8" ) as fp:
                 "icao24": data[5].strip('\"'),
                 "lat": lat,
                 "long": long,
-                "name": data[1].strip('\"')
+                "name": data[1].strip('\"'),
+                "city": data[2].strip('\"'),
+                "timezone": data[9]
             })
 
 with open("airports.json", "w") as json_file:

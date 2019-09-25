@@ -22,6 +22,8 @@ export default class AirportDataPanel extends Component {
             key = {"data-comp-" + i} 
             icao = {data["icao24"]}
             name = {data["name"]}
+            timezone = {data["timezone"]}
+            city = {data["city"]}
             />
         );
 
@@ -44,15 +46,20 @@ export default class AirportDataPanel extends Component {
 
 function AirportDataComponent(props){
 
+    /*
     getArrivalsByIcao(props.icao, (result) => {
         console.log("arrivals by icao");
         console.log(result);
     })
+    */
+   
     return (
-        <div className = "airport-data-component">
-            <div onClick = {() => {
-                moveCamera([props.long, props.lat], 10);
-            }}>{props.name}</div>
+        <div className = "airport-data-component"  onClick = {() => {
+            moveCamera([props.long, props.lat], 10);
+        }}>
+            <div className =  "airport-data-component-name" >{props.name}</div>
+            <div>{props.city}</div>
+            <div>Int ID: {props.icao}</div>
         </div>
     );
 }

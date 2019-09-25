@@ -141,6 +141,7 @@ export default class Overlay extends Component {
 
                                     
                                     this.setState({
+                                        inputValue: "",
                                         displayAirportPanel: true,
                                         currentView: that.state.inputValue.toUpperCase(),
                                         numAirports: result.num_airports,
