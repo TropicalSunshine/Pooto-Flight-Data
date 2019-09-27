@@ -4,11 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+import {renderMap, plotGrounded, plotAirports} from "./api/mapbox.js";
 
-
-var renderMap = require("./api/mapbox.js").renderMap;
-var plotGrounded = require("./api/mapbox.js").plotGrounded;
-var plotAirports = require("./api/mapbox.js").plotAirports;
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

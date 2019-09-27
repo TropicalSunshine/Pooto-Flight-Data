@@ -4,7 +4,8 @@ import React, { Component } from 'react'
 import {Icon} from "office-ui-fabric-react/lib/Icon";
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 
-var toggleLayer = require("../api/mapbox.js").toggleLayer;
+import {toggleLayer} from "../api/mapbox.js";
+
 export default class SettingsTab extends Component {
 
     constructor()

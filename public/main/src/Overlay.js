@@ -15,12 +15,7 @@ import Map from "./Map.js";
 
 import Loader from "./UI/Loader.js";
 
-var moveCamera = require("./api/mapbox.js").moveCamera;
-
-
-var getNumFlights = require("./api/mapbox.js").getNumFlights;
-var getNumGrounded = require("./api/mapbox.js").getNumGrounded;
-
+import {moveCamera, getNumFlights, getNumGrounded} from "./api/mapbox.js";
 
 export default class Overlay extends Component {
     constructor(){
