@@ -8,17 +8,19 @@ import AirportDataPanel from "./UI/AirportDataPanel.js";
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import {PrimaryButton} from "office-ui-fabric-react"
 
-import {renderLine, drawFlightRoute, moveCamera} from "./api/mapbox.js";
-import {getFirstAirportByCountry, getAirportsByCountry} from "./helpers/network.js";
 
-import {midPoint} from "./helpers/pointcalculations.js";
+import {getFirstAirportByCountry, getAirportsByCountry} from "./helpers/network.js";
 
 import Map from "./Map.js";
 
 import Loader from "./UI/Loader.js";
 
-import {getNumFlights, getNumGrounded} from "./api/mapbox.js";
-import { ThemeGenerator } from 'office-ui-fabric-react';
+var moveCamera = require("./api/mapbox.js").moveCamera;
+
+
+var getNumFlights = require("./api/mapbox.js").getNumFlights;
+var getNumGrounded = require("./api/mapbox.js").getNumGrounded;
+
 
 export default class Overlay extends Component {
     constructor(){

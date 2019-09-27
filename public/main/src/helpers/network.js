@@ -1,4 +1,4 @@
-var url = "http://localhost:8181";
+var url = "http://" + window.location.host;
 
 
 module.exports = {

@@ -13,7 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //client page
-app.use('/', express.static(path.join(__dirname + '/public/mainclient/build')));
+app.use('/', express.static(path.join(__dirname + '/public/main/build')));
 
 
 app.use("/flights", flight_route);

@@ -1,8 +1,8 @@
 import {Icon} from "office-ui-fabric-react/lib/Icon";
-import {moveCamera} from "../api/mapbox.js";
+
 import React, { Component } from 'react'
 
-import {getDepaturesByIcao, getArrivalsByIcao} from "../helpers/network.js";
+var moveCamera = require("../api/mapbox.js").moveCamera;
 
 
 export default class AirportDataPanel extends Component {
