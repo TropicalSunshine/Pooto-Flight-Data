@@ -12,13 +12,14 @@ const airport_route = require("./routes/airports.js");
 app.use(cors());
 app.use(bodyParser.json());
 
-//client page
-app.use('/', express.static(path.join(__dirname + '/public/main/build')));
 
 
 app.use("/flights", flight_route);
 app.use("/airports", airport_route);
 
+//client page
+console.log(__dirname);
+app.use('', express.static(path.join(__dirname + '/public/main/build')));
 
 //if no routes are found
 app.use((req, res, next) => {
