@@ -77,8 +77,11 @@ router.get("/departure/icao24/:icao24", (req, res, next) => {
     var start = end - 10800;
 
     res.header("content-type", "application/json");
+    var fetch = `https://tropicaltofu:Jason10271999@opensky-network.org/api/flights/departure?airport=${icao24}&begin=${start}&end=${end}`;
 
-    axios.get(`https://tropicaltofu:Jason10271999@https://opensky-network.org/api/flights/departure?airport=${icao24}&begin=${start}&end=${end}`)
+    console.log("fetch",fetch);
+
+    axios.get(`https://tropicaltofu:Jason10271999@opensky-network.org/api/flights/departure?airport=${icao24}&begin=${start}&end=${end}`)
     .then(response => {
 
         if(response == []){
@@ -106,9 +109,8 @@ router.get("/arrivals/icao24/:icao24", (req, res, next) => {
 
     res.header("content-type", "application/json");
 
-    axios.get(`https://tropicaltofu:Jason10271999@https://opensky-network.org/api/flights/arrival?airport=${icao24}&begin=${start}&end=${end}`)
+    axios.get(`https://tropicaltofu:Jason10271999@opensky-network.org/api/flights/arrival?airport=${icao24}&begin=${start}&end=${end}`)
     .then(response => {
-
         if(response == []){
             res.status(404).json({
                 message: "icao does not exist",
@@ -122,7 +124,10 @@ router.get("/arrivals/icao24/:icao24", (req, res, next) => {
             });
         }
     }).catch(error => {
-        console.log("airports/icao Error: ", error);
+        res.status(404).json({
+            message: "no data",
+            data: null
+        })
     })
 })
 

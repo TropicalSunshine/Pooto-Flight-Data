@@ -2,6 +2,7 @@ import {Icon} from "office-ui-fabric-react/lib/Icon";
 
 import React, { Component } from 'react'
 import {moveCamera} from "../api/mapbox.js";
+import {getArrivalsByIcao} from "../helpers/network.js";
 
 
 
@@ -52,6 +53,7 @@ function AirportDataComponent(props){
         console.log(result);
     })
     */
+    
    
     return (
         <div className = "airport-data-component"  onClick = {() => {

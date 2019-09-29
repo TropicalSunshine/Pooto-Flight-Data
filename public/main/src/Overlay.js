@@ -21,6 +21,7 @@ export default class Overlay extends Component {
     constructor(){
         super();
         this.state = {
+            inputValue: "",
             airportsData: null,
             currentView: "World",
             numGrounded: 0,
@@ -34,6 +35,7 @@ export default class Overlay extends Component {
         this.mountAirportPanel = this.mountAirportPanel.bind(this);
 
         this.resetView = this.resetView.bind(this);
+        this.clearInput = this.clearInput.bind(this);
 
     }
 
@@ -69,6 +71,12 @@ export default class Overlay extends Component {
                 })
             }, 2000)
             
+        })
+    }
+
+    clearInput(){
+        this.setState({
+            inputValue: ""
         })
     }
 
@@ -113,6 +121,36 @@ export default class Overlay extends Component {
                     flights = {this.state.numFlights}/>
                 <div className = "overlay-input-container">
                         <TextField
+                        onKeyDown = {(evt) => {
+                            var that = this;
+
+                            if(evt.keyCode === 13){
+
+                                getFirstAirportByCountry(this.state.inputValue, (result) => {
+                                    moveCamera([result.long, result.lat], 6);
+                                });
+    
+                                getAirportsByCountry(this.state.inputValue, (result) => {
+                                    console.log(result);
+                                    if(result.data !== null){
+                                        clearInterval(this.state.dataUpdateInterval);
+                                        
+                                        
+                                        this.setState({
+                                            inputValue: "",
+                                            displayAirportPanel: true,
+                                            currentView: that.state.inputValue.toUpperCase(),
+                                            numAirports: result.num_airports,
+                                            airportsData: result.data
+                                        })
+                                    }
+                                    else{
+    
+                                    }
+                                });
+                            }
+                        }}
+                        value = {this.state.inputValue}
                         placeholder = "Enter Country"
                         onChange = {(evt, input) => {
                             this.setState({
@@ -133,9 +171,8 @@ export default class Overlay extends Component {
                             getAirportsByCountry(this.state.inputValue, (result) => {
                                 console.log(result);
                                 if(result.data !== null){
-
                                     clearInterval(this.state.dataUpdateInterval);
-
+                                    
                                     
                                     this.setState({
                                         inputValue: "",
@@ -144,6 +181,7 @@ export default class Overlay extends Component {
                                         numAirports: result.num_airports,
                                         airportsData: result.data
                                     })
+
                                 }
                                 else{
 

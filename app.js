@@ -18,7 +18,6 @@ app.use("/flights", flight_route);
 app.use("/airports", airport_route);
 
 //client page
-console.log(__dirname);
 app.use('', express.static(path.join(__dirname + '/public/main/build')));
 
 //if no routes are found
