@@ -80,7 +80,6 @@ export function renderMap() {
 
         var all_flight_interval = setInterval(updateFlights, data_retrieve_interval);
     });
-
 }
 
 export function toggleLayer (ID, show) {
