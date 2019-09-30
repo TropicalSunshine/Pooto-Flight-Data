@@ -1,7 +1,4 @@
 import mapboxgl from "mapbox-gl/dist/mapbox-gl.js";
-
-var calc = require("../helpers/pointcalculations.js");
-
 mapboxgl.accessToken = 'pk.eyJ1IjoidHJvcGljYWx0b2Z1IiwiYSI6ImNrMGc5cWJjcDA1ZGMzY241aGtoeWJnczYifQ.1lkF8CRWw2bxBUsnBKd4Aw';
 
 
