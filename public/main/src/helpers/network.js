@@ -1,5 +1,4 @@
 var url = "http://" + window.location.host;
-url = "http://localhost:8181"; 
 
 module.exports = {
     getAllFlightCord: function(callback)
