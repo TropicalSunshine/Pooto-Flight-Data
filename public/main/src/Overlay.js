@@ -22,7 +22,7 @@ export default class Overlay extends Component {
         super();
         this.state = {
             inputValue: "",
-            airportsData: null,
+            airportsData: [],
             currentView: "World",
             numGrounded: 0,
             numAirports: 4188,

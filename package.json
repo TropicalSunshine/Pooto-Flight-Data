@@ -19,6 +19,7 @@
     "topojson-client": "^3.0.1"
   },
   "devDependencies": {
-    "nodemon": "^1.19.2"
+    "mongodb": "^3.4.0",
+    "nodemon": "^1.19.4"
   }
 }

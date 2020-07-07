@@ -292,6 +292,11 @@ button {
   background-color: #636363;
 }
 
+.airport-data-panel-textfield{
+  margin: auto;
+  width: 90%;
+}
+
 .airport-data-panel-content{
   overflow: auto;
   height: 100%;
